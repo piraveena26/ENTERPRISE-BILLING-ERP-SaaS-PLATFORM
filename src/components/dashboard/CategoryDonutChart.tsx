@@ -21,7 +21,7 @@ export const CategoryDonutChart: React.FC = () => {
   let accumulatedPercent = 0;
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between">
+    <div className="bg-white/90 dark:bg-[#0c1220]/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800/80 p-6 shadow-xs flex flex-col justify-between">
       <div>
         <h3 className="text-base font-bold text-slate-900 dark:text-white">Revenue by Category</h3>
         <p className="text-xs text-slate-500">Distribution across business lines</p>

@@ -27,7 +27,7 @@ export const AgingChart: React.FC = () => {
   const totalOutstanding = Object.values(buckets).reduce((sum, b) => sum + b.amount, 0) || 1;
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between">
+    <div className="bg-white/90 dark:bg-[#0c1220]/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800/80 p-6 shadow-xs flex flex-col justify-between">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-base font-bold text-slate-900 dark:text-white">Outstanding Receivables Aging</h3>

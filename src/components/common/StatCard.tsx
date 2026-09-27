@@ -31,22 +31,22 @@ export const StatCard: React.FC<StatCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl p-5 shadow-xs transition-all duration-200 ${
+      className={`bg-white/90 dark:bg-[#0c1220]/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-xs transition-all duration-200 ${
         onClick ? 'cursor-pointer hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700' : ''
       }`}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
             {title}
           </p>
-          <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1.5 tracking-tight">
+          <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1.5 tracking-tight">
             {value}
           </h3>
           {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{subtitle}</p>}
         </div>
         {icon && (
-          <div className={`p-3 rounded-xl shrink-0 ${iconBg} shadow-xs`}>
+          <div className={`p-2.5 rounded-xl shrink-0 ${iconBg} shadow-2xs border border-black/5 dark:border-white/5`}>
             {icon}
           </div>
         )}
@@ -56,19 +56,19 @@ export const StatCard: React.FC<StatCardProps> = ({
         {changePercentage !== undefined ? (
           <div className="flex items-center gap-1.5 text-xs">
             <span
-              className={`inline-flex items-center font-bold px-1.5 py-0.5 rounded-md ${
+              className={`inline-flex items-center font-extrabold px-1.5 py-0.5 rounded-md text-[11px] ${
                 isPositive
-                  ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400'
-                  : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400'
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                  : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
               }`}
             >
-              {isPositive ? <TrendingUp className="w-3.5 h-3.5 mr-0.5" /> : <TrendingDown className="w-3.5 h-3.5 mr-0.5" />}
+              {isPositive ? <TrendingUp className="w-3 h-3 mr-0.5" /> : <TrendingDown className="w-3 h-3 mr-0.5" />}
               {Math.abs(changePercentage)}%
             </span>
             <span className="text-slate-400 dark:text-slate-500 text-[11px]">{changeLabel}</span>
           </div>
         ) : (
-          <div className="text-[11px] text-slate-400">Real-time synchronized</div>
+          <div className="text-[11px] text-slate-400 dark:text-slate-500">Real-time ledger synced</div>
         )}
 
         {/* Mini Sparkline SVG if provided */}

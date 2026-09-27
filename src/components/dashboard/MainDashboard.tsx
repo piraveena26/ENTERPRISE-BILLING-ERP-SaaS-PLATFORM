@@ -14,6 +14,7 @@ import {
   CreditCard,
   Building2,
   Calendar,
+  Layers,
 } from 'lucide-react';
 import { useERP } from '../../context/ERPContext';
 import { formatCurrency } from '../../utils/formatters';
@@ -87,102 +88,81 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Welcome & Business Status Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
-        {/* Subtle decorative glow */}
-        <div className="absolute right-0 top-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-indigo-950/80 to-[#070b14] text-white rounded-2xl p-6 sm:p-7 border border-slate-800/80 shadow-md relative overflow-hidden">
+        {/* Subtle decorative radial glow */}
+        <div className="absolute right-0 top-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
-          <div className="flex items-center gap-2 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-1.5">
             <Building2 className="w-3.5 h-3.5" />
             <span>{activeCompany.name} • {activeBranch.name}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
             Good morning, {userSession.name}
           </h1>
-          <p className="text-indigo-200 text-xs sm:text-sm mt-1 max-w-xl">
+          <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl leading-relaxed">
             Financial ledger reconciled, Sri Lanka Inland Revenue tax registers up to date, and logistics terminals operational.
           </p>
         </div>
 
         <div className="relative z-10 flex flex-wrap items-center gap-3">
-          <div className="px-3 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15 text-xs">
-            <span className="text-indigo-300 block text-[10px] uppercase font-bold">Fiscal Period</span>
-            <span className="font-extrabold">Q3 2026-27 (Active)</span>
+          <div className="px-3.5 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 text-xs">
+            <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Fiscal Period</span>
+            <span className="font-extrabold text-white">Q3 2026-27 (Active)</span>
           </div>
-          <div className="px-3 py-2 rounded-xl bg-emerald-500/20 backdrop-blur-xs border border-emerald-400/30 text-emerald-300 text-xs flex items-center gap-2">
+          <div className="px-3.5 py-2 rounded-xl bg-emerald-500/10 backdrop-blur-md border border-emerald-500/20 text-emerald-400 text-xs flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-bold">ERP Engine Online</span>
           </div>
         </div>
       </div>
 
-      {/* 6 Executive KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      {/* 4 Primary Executive Strategic KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Gross Revenue"
           value={formatCurrency(101640000, activeCurrency)}
-          subtitle="YTD Billed Revenue"
+          subtitle="YTD Billed Revenue • +18.4% vs target"
           changePercentage={18.4}
           sparklineData={[60, 72, 68, 85, 92, 105]}
-          icon={<DollarSign className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />}
-          iconBg="bg-indigo-50 dark:bg-indigo-950/40"
+          icon={<DollarSign className="w-5 h-5 text-indigo-500" />}
+          iconBg="bg-indigo-500/10 text-indigo-500"
         />
 
         <StatCard
-          title="Receivables"
+          title="Net Operating Profit"
+          value={formatCurrency(36670000, activeCurrency)}
+          subtitle="EBITDA Margin 36.1% • Strong liquidity"
+          changePercentage={14.8}
+          sparklineData={[20, 24, 22, 28, 32, 37]}
+          icon={<Sparkles className="w-5 h-5 text-emerald-500" />}
+          iconBg="bg-emerald-500/10 text-emerald-500"
+        />
+
+        <StatCard
+          title="Trade Receivables"
           value={formatCurrency(totalOutstanding, activeCurrency)}
           subtitle={`Overdue: ${formatCurrency(overdueTotal, activeCurrency)}`}
           changePercentage={-4.2}
           changeLabel="aging exposure"
           sparklineData={[40, 45, 38, 42, 35, 30]}
-          icon={<Clock className="w-5 h-5 text-rose-600 dark:text-rose-400" />}
-          iconBg="bg-rose-50 dark:bg-rose-950/40"
+          icon={<Clock className="w-5 h-5 text-rose-500" />}
+          iconBg="bg-rose-500/10 text-rose-500"
         />
 
         <StatCard
-          title="Sales This Month"
-          value={formatCurrency(25800000, activeCurrency)}
-          subtitle="vs LKR 22.4M last month"
-          changePercentage={22.1}
-          sparklineData={[15, 18, 16, 21, 23, 26]}
-          icon={<ShoppingBag className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
-          iconBg="bg-emerald-50 dark:bg-emerald-950/40"
-        />
-
-        <StatCard
-          title="Total Expenses"
-          value={formatCurrency(64970000, activeCurrency)}
-          subtitle="COGS & Operational"
-          changePercentage={6.8}
-          changeLabel="controlled OPEX"
-          sparklineData={[50, 52, 54, 58, 61, 65]}
-          icon={<TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />}
-          iconBg="bg-amber-50 dark:bg-amber-950/40"
-        />
-
-        <StatCard
-          title="Net Profit"
-          value={formatCurrency(36670000, activeCurrency)}
-          subtitle="EBITDA Margin 36.1%"
-          changePercentage={14.8}
-          sparklineData={[20, 24, 22, 28, 32, 37]}
-          icon={<Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />}
-          iconBg="bg-purple-50 dark:bg-purple-950/40"
-        />
-
-        <StatCard
-          title="Stock Valuation"
+          title="Warehouse Stock Value"
           value={formatCurrency(totalStockValue, activeCurrency)}
-          subtitle={`${lowStockCount} items at reorder point`}
+          subtitle={`${lowStockCount} items at reorder threshold`}
           changePercentage={-1.5}
           changeLabel="turnover velocity"
           sparklineData={[100, 102, 105, 108, 110, 112]}
-          icon={<Boxes className="w-5 h-5 text-sky-600 dark:text-sky-400" />}
-          iconBg="bg-sky-50 dark:bg-sky-950/40"
+          icon={<Boxes className="w-5 h-5 text-sky-500" />}
+          iconBg="bg-sky-500/10 text-sky-500"
         />
       </div>
 
-      {/* Prominent Quick Actions */}
+      {/* Prominent Quick Command Deck */}
       <QuickActions
         onAction={handleQuickAction}
         onNavigateModule={onNavigateModule}
@@ -205,8 +185,8 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
         </div>
 
         {/* Top Enterprise Customers Card */}
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-3">
+        <div className="bg-white/90 dark:bg-[#0c1220]/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800/80 p-6 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">Top Enterprise Clients</h3>
               <p className="text-xs text-slate-500">Highest revenue contributors</p>
@@ -224,7 +204,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
               <div
                 key={cust.id}
                 onClick={() => onNavigateModule('Customers')}
-                className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer"
+                className="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700/60"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <span className="text-xs font-black text-slate-400 w-4 text-center">
@@ -254,15 +234,15 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
             ))}
           </div>
 
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-            <span>Customer Retention Rate: 96.8%</span>
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Customer Retention: 96.8%</span>
             <span className="text-slate-500">Average Credit: 30 Days</span>
           </div>
         </div>
 
         {/* Top Fast-Moving Products Card */}
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-3">
+        <div className="bg-white/90 dark:bg-[#0c1220]/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800/80 p-6 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">High-Velocity Products</h3>
               <p className="text-xs text-slate-500">Top revenue generating catalog items</p>
@@ -280,7 +260,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
               <div
                 key={prod.id}
                 onClick={() => onNavigateModule('Products')}
-                className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer"
+                className="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700/60"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <img
@@ -307,7 +287,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
             ))}
           </div>
 
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
             <span>Inventory turnover: 8.4x / year</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Healthy supply</span>
           </div>
@@ -315,7 +295,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
       </div>
 
       {/* Recent Activity Timeline */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 p-5 shadow-xs">
+      <div className="bg-white/90 dark:bg-[#0c1220]/90 backdrop-blur-md rounded-2xl border border-slate-200/80 dark:border-slate-800/80 p-6 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Recent Enterprise Activity</h3>
@@ -333,7 +313,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
           {auditLogs.slice(0, 5).map((log) => (
             <div key={log.id} className="py-3 flex items-start justify-between gap-4 text-xs">
               <div className="flex items-start gap-3 min-w-0">
-                <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 mt-0.5 border border-indigo-200/40 dark:border-indigo-800/40">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
